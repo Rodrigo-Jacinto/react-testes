@@ -14,18 +14,23 @@ describe("TechList Test", () => {
     it("testando botão adicionar", () => {
 
         // funções para localizar elementos jsx dentro do component TechList
-        const { getByText, getByTestId, debug } = render(<TechList />)
-        
+        const { getByText, getByTestId, debug, getByLabelText } = render(<TechList />)
+
         //mostra o component TechList (o jsx) naquele exato momento
-        debug();
-        
+         debug();
+
+        fireEvent.change(getByLabelText("Tech"), { target: { value: "Node.js" } });
+        fireEvent.submit(getByTestId("form-tech"));
+
+
         //fireEvent simula a execução de um evento 
-        fireEvent.click(getByText("Adicionar"));
-
+        //fireEvent.click(getByText("Adicionar"));
         debug();
 
-        // expect simula oque é esperado de determinadp component ou função
+
+        // expect simula oque é esperado de determinado component ou função
         expect(getByTestId("tech-list")).toContainElement(getByText("Node.js"));
+        expect(getByLabelText("Tech")).toHaveValue("")
     })
 
 
